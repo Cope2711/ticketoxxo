@@ -26,7 +26,7 @@ html {
 
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 280px;
   min-height: 100vh;
   overflow-x: hidden;
   background:
@@ -907,6 +907,18 @@ img {
   min-height: calc(100vh - 4rem);
 }
 
+.inventory__sticky > * {
+  min-width: 0;
+}
+
+.inventory__sticky > div:first-child,
+.inventory__visual,
+.inventory__list,
+.receipt-summary {
+  width: 100%;
+  max-width: 100%;
+}
+
 .inventory .section-label {
   border-color: rgba(7, 18, 29, .15);
   color: rgba(7, 18, 29, .5);
@@ -972,6 +984,10 @@ img {
   font-size: .56rem;
 }
 
+.inventory-row small {
+  display: none;
+}
+
 .inventory-row > span:nth-child(n + 3) {
   text-align: right;
   white-space: nowrap;
@@ -1030,6 +1046,7 @@ img {
   position: relative;
   display: grid;
   place-items: center;
+  min-width: 0;
 }
 
 .inventory__glass {
@@ -1393,9 +1410,21 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .inventory__visual {
-    margin-top: 2rem;
+  .inventory__sticky > div:first-child {
+    display: contents;
   }
+
+  .inventory .section-label { order: 1; }
+  .inventory__heading { order: 2; }
+  .inventory__intro-wrap { order: 3; }
+
+  .inventory__visual {
+    order: 4;
+    margin: 2rem 0 1rem;
+  }
+
+  .inventory__list { order: 5; }
+  .receipt-summary { order: 6; }
 
   .numbers__grid {
     grid-template-columns: 1fr;
@@ -1410,6 +1439,64 @@ img {
   }
 
   .finale footer p { display: none; }
+}
+
+@media (max-width: 700px) {
+  .inventory__list {
+    overflow: visible;
+  }
+
+  .inventory__table-head {
+    display: none;
+  }
+
+  .inventory-row {
+    grid-template-columns: 2rem minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "id name name"
+      ". price discount"
+      ". final final";
+    min-width: 0;
+    gap: .65rem 1rem;
+    padding: 1rem .5rem;
+  }
+
+  .inventory-row > span:nth-child(1) { grid-area: id; }
+  .inventory-row > span:nth-child(2) { grid-area: name; }
+  .inventory-row__price { grid-area: price; }
+  .inventory-row__discount { grid-area: discount; }
+  .inventory-row__final { grid-area: final; }
+
+  .inventory-row > span:nth-child(n + 3) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    padding-top: .4rem;
+    text-align: left;
+  }
+
+  .inventory-row__final {
+    margin-top: .15rem;
+    border-top: 1px solid rgba(7, 18, 29, .1);
+  }
+
+  .inventory-row small {
+    display: inline;
+    color: rgba(7, 18, 29, .42);
+    font: .48rem 'DM Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .inventory-row:hover,
+  .inventory-row.is-active {
+    padding-inline: .75rem;
+  }
+
+  .inventory__glass {
+    width: min(100%, 25rem);
+  }
 }
 
 @media (max-width: 540px) {

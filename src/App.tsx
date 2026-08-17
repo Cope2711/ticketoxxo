@@ -314,10 +314,10 @@ function App() {
                 <span>03 / INVENTARIO</span>
                 <span>09 PRODUCTOS / DATOS COMPLETOS</span>
               </div>
-              <Reveal>
-                <h2>UNA COMPRA.<br />SIETE PISTAS.</h2>
+              <Reveal className="inventory__heading">
+                <h2>UNA COMPRA.<br />NUEVE PISTAS.</h2>
               </Reveal>
-              <Reveal delay={0.1}>
+              <Reveal className="inventory__intro-wrap" delay={0.1}>
                 <p className="inventory__intro">
                   Precio original, descuento y precio final conservados exactamente como aparecen en la compra.
                 </p>
@@ -340,9 +340,9 @@ function App() {
                   >
                     <span className="mono">{item.id}</span>
                     <span>{item.name}</span>
-                    <span className="mono">{item.price}</span>
-                    <span className="mono inventory-row__discount">{item.discount}</span>
-                    <span className="mono inventory-row__final">{item.final}</span>
+                    <span className="mono inventory-row__price"><small>Precio</small>{item.price}</span>
+                    <span className="mono inventory-row__discount"><small>Descuento</small>{item.discount}</span>
+                    <span className="mono inventory-row__final"><small>Final</small>{item.final}</span>
                   </button>
                 ))}
               </div>
